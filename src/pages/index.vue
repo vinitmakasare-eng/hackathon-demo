@@ -1,0 +1,170 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import { Icon } from "@iconify/vue";
+
+// Dashboard filtering/refresh controls (mock state)
+const selectedTimeframe = ref("Last 7 Days");
+const selectedProcessCodeFilter = ref("All Process Codes");
+
+const refreshDashboard = () => {
+  // Mock refresh action - visual feedback
+  const button = document.getElementById("refresh-btn");
+  if (button) {
+    button.classList.add("animate-spin");
+    setTimeout(() => {
+      button.classList.remove("animate-spin");
+    }, 800);
+  }
+};
+</script>
+
+<template>
+  <div class="space-y-8 pb-16 animate-fade-in">
+    <!-- Premium Header Area -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div>
+        <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)]">Dashboard</h2>
+        <p class="text-xs text-[var(--text-muted)] mt-1">
+          Real-time overview of user journeys and system health
+        </p>
+      </div>
+
+      <!-- Right Dashboard Filters -->
+      <div class="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
+        <!-- Date Selector -->
+        <div class="relative">
+          <select
+            v-model="selectedTimeframe"
+            class="pl-9 pr-8 py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/80 backdrop-blur-md text-xs font-bold text-[var(--text-main)] appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          >
+            <option>Last 24 Hours</option>
+            <option>Last 7 Days</option>
+            <option>Last 30 Days</option>
+          </select>
+          <Icon icon="lucide:calendar" class="w-4 h-4 absolute left-3 top-2.5 text-indigo-500 pointer-events-none" />
+          <Icon icon="lucide:chevron-down" class="w-3.5 h-3.5 absolute right-2.5 top-3 text-[var(--text-muted)] pointer-events-none" />
+        </div>
+
+        <!-- Process Code Filter -->
+        <div class="relative">
+          <select
+            v-model="selectedProcessCodeFilter"
+            class="pl-9 pr-8 py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/80 backdrop-blur-md text-xs font-bold text-[var(--text-main)] appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          >
+            <option>All Process Codes</option>
+            <option>INSP-123456</option>
+            <option>INSP-789012</option>
+            <option>INSP-456789</option>
+          </select>
+          <Icon icon="lucide:terminal" class="w-4 h-4 absolute left-3 top-2.5 text-indigo-500 pointer-events-none" />
+          <Icon icon="lucide:chevron-down" class="w-3.5 h-3.5 absolute right-2.5 top-3 text-[var(--text-muted)] pointer-events-none" />
+        </div>
+
+        <!-- Refresh Button -->
+        <button
+          id="refresh-btn"
+          @click="refreshDashboard"
+          class="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-slate-500/10 text-[var(--text-muted)] hover:text-[var(--text-main)] ease-premium cursor-pointer"
+          title="Refresh statistics"
+        >
+          <Icon icon="lucide:refresh-cw" class="w-4 h-4" />
+        </button>
+      </div>
+    </div>
+
+    <!-- 6 KPI Grid Cards Row -->
+    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+      <KpiCard
+        title="Total Sessions"
+        value="12,450"
+        icon="lucide:users"
+        accentColor="indigo"
+        :trend="{ value: '8.5% vs last 7 days', isPositive: true }"
+      />
+      <KpiCard
+        title="Completed Flows"
+        value="10,876"
+        icon="lucide:check-circle"
+        accentColor="emerald"
+        :trend="{ value: '7.2% vs last 7 days', isPositive: true }"
+      />
+      <KpiCard
+        title="API Failures"
+        value="423"
+        icon="lucide:alert-triangle"
+        accentColor="rose"
+        :trend="{ value: '18.6% vs last 7 days', isPositive: false }"
+      />
+      <KpiCard
+        title="Drop-off Rate"
+        value="12%"
+        icon="lucide:trending-down"
+        accentColor="violet"
+        :trend="{ value: '2.4% vs last 7 days', isPositive: true }"
+      />
+      <KpiCard
+        title="Avg Flow Time"
+        value="4m 12s"
+        icon="lucide:clock"
+        accentColor="violet"
+        :trend="{ value: '6.3% vs last 7 days', isPositive: true }"
+      />
+      <KpiCard
+        title="Critical Issues"
+        value="5"
+        icon="lucide:alert-circle"
+        accentColor="rose"
+        :trend="{ value: '2 vs last 7 days', isPositive: false }"
+      />
+    </div>
+
+    <!-- Main Dashboard Section with Sidebar Column -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Left 9 Columns: Primary Analytics Charts -->
+      <div class="lg:col-span-9 space-y-6">
+        <!-- Row 1: Failure List, Success Ratio, Journey Funnel (3 columns equal height) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <OverallApiFailureList />
+          <ApiSuccessFailureChart />
+          <UserJourneyFunnelChart />
+        </div>
+
+        <!-- Row 2: Average Time Spent (2/3 width) and Top Error Types (1/3 width) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <UserAverageTimeChart />
+          </div>
+          <div>
+            <TopErrorTypesChart />
+          </div>
+        </div>
+
+        <!-- Row 3: Journey Explorer (2/3 width) and Audit Log Explorer (1/3 width) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <JourneyExplorer />
+          </div>
+          <div>
+            <AuditLogExplorer />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right 3 Columns: AI Insights Sidebar -->
+      <div class="lg:col-span-3">
+        <AiInsights />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+</style>
