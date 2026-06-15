@@ -44,31 +44,7 @@ const refreshDashboard = () => {
           <Icon icon="lucide:calendar" class="w-4 h-4 absolute left-3 top-2.5 text-indigo-500 pointer-events-none" />
           <Icon icon="lucide:chevron-down" class="w-3.5 h-3.5 absolute right-2.5 top-3 text-[var(--text-muted)] pointer-events-none" />
         </div>
-
-        <!-- Process Code Filter -->
-        <div class="relative">
-          <select
-            v-model="selectedProcessCodeFilter"
-            class="pl-9 pr-8 py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/80 backdrop-blur-md text-xs font-bold text-[var(--text-main)] appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-500"
-          >
-            <option>All Process Codes</option>
-            <option>INSP-123456</option>
-            <option>INSP-789012</option>
-            <option>INSP-456789</option>
-          </select>
-          <Icon icon="lucide:terminal" class="w-4 h-4 absolute left-3 top-2.5 text-indigo-500 pointer-events-none" />
-          <Icon icon="lucide:chevron-down" class="w-3.5 h-3.5 absolute right-2.5 top-3 text-[var(--text-muted)] pointer-events-none" />
-        </div>
-
         <!-- Refresh Button -->
-        <button
-          id="refresh-btn"
-          @click="refreshDashboard"
-          class="p-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)] hover:bg-slate-500/10 text-[var(--text-muted)] hover:text-[var(--text-main)] ease-premium cursor-pointer"
-          title="Refresh statistics"
-        >
-          <Icon icon="lucide:refresh-cw" class="w-4 h-4" />
-        </button>
       </div>
     </div>
 

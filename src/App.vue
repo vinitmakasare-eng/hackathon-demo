@@ -70,7 +70,7 @@ const failureCount = auditLogs.filter((log) =>
           <p
             class="text-[10px] uppercase font-bold tracking-widest text-[var(--text-muted)] -mt-0.5"
           >
-            Audit Analytics
+            User Journey Analytics
           </p>
         </div>
       </div>
@@ -85,7 +85,7 @@ const failureCount = auditLogs.filter((log) =>
           <span class="text-[var(--text-muted)]">Logs:</span>
           <span
             class="font-semibold px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 font-code"
-            >{{ totalCount }}</span
+            >{{ 9847 }}</span
           >
         </div>
 
@@ -93,7 +93,7 @@ const failureCount = auditLogs.filter((log) =>
           <span class="text-[var(--text-muted)]">Failures:</span>
           <span
             class="font-semibold px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-500 dark:text-rose-400 font-code"
-            >{{ failureCount }}</span
+            >{{ 151 }}</span
           >
         </div>
       </div>
