@@ -129,7 +129,7 @@ const failureCount = auditLogs.filter((log) =>
     </header>
 
     <!-- Main Container -->
-    <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pt-8">
+    <main class="relative z-10 w-11/12 mx-auto px-4 md:px-6 pt-8">
       <RouterView />
     </main>
   </div>

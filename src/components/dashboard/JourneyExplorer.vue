@@ -3,8 +3,8 @@ import { ref, computed } from "vue";
 import { Icon } from "@iconify/vue";
 import journeyData from "../../mock/journeyData.json";
 
-// Default to INSP-123456
-const selectedProcessCode = ref("INSP-123456");
+// Default to INSP-100004 (has POI between Instructions & Odometer)
+const selectedProcessCode = ref("INSP-100004");
 
 // Extract unique process codes from mock data
 const processCodes = computed(() => {
@@ -13,12 +13,12 @@ const processCodes = computed(() => {
       .map((log) => log.r)
       .filter((r) => r && r !== "0" && r.startsWith("INSP-"))
   );
-  const shuffledCodes = Array.from(codes);
-  for (let i = shuffledCodes.length - 1; i > 0; i--) {
+  const shuffled = Array.from(codes);
+  for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [shuffledCodes[i], shuffledCodes[j]] = [shuffledCodes[j], shuffledCodes[i]];
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return shuffledCodes;
+  return shuffled;
 });
 
 // Filter logs for selected process code
@@ -107,15 +107,15 @@ const getStepDetails = (event: string, ud: string) => {
       if (page.includes("instruction")) {
         return { label: "Instructions", icon: "lucide:info", style: "text-blue-500 bg-blue-500/10 border-blue-500/20" };
       }
+      if (page.includes("impacted") || page.includes("poi")) {
+        return { label: "POI", icon: "lucide:car", style: "text-amber-500 bg-amber-500/10 border-amber-500/20" };
+      }
       if (page.includes("permission")) {
         return { label: "Permissions", icon: "lucide:lock", style: "text-blue-500 bg-blue-500/10 border-blue-500/20" };
       }
-      if (page.includes("poi")) {
-        return { label: "POI", icon: "lucide:map-pin", style: "text-blue-500 bg-blue-500/10 border-blue-500/20" };
-      }
       // If it's a page_visit and not one of the specific named pages above, assume it's Odometer based on sequence
       // This handles cases where 'page' might not explicitly contain "odometer" but it's the next logical step.
-      if (!page.includes("start") && !page.includes("instruction") && !page.includes("permission") && !page.includes("poi") && !page.includes("position") && !page.includes("photos") && !page.includes("review")) {
+      if (!page.includes("start") && !page.includes("instruction") && !page.includes("impacted") && !page.includes("poi") && !page.includes("permission") && !page.includes("position") && !page.includes("photos") && !page.includes("review")) {
         return { label: "Odometer", icon: "lucide:camera", style: "text-blue-500 bg-blue-500/10 border-blue-500/20" };
       }
       if (page.includes("position")) {
