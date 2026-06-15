@@ -1,31 +1,78 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { Icon } from "@iconify/vue";
-import journeyData from "../../mock/journeyData.json";
+import auditLogsData from "../../mock/auditLogs.json";
 
 // Search query
 const searchQuery = ref("");
 
+// Selected log for detail view
+const selectedLog = ref<any>(null);
+
+// Pretty-print JSON strings
+const prettyJson = (str: string) => {
+  if (!str) return "—";
+  try {
+    return JSON.stringify(JSON.parse(str), null, 2);
+  } catch {
+    return str;
+  }
+};
+
+// Open / close detail modal
+const openDetail = (log: any) => {
+  selectedLog.value = log;
+};
+const closeDetail = () => {
+  selectedLog.value = null;
+};
+
 // Filter out metric logs, sort by timestamp descending
 const auditLogs = computed(() => {
-  return journeyData
-    .filter((log) => log.ev !== "funnel_metric" && log.ev !== "time_metric")
-    .sort((a, b) => new Date(b.t).getTime() - new Date(a.t).getTime());
+  return auditLogsData
+    .filter((log: any) => log.ev !== "funnel_metric" && log.ev !== "time_metric")
+    .sort((a: any, b: any) => new Date(b.t).getTime() - new Date(a.t).getTime());
 });
 
+// Pagination
+const currentPage = ref(1);
+const itemsPerPage = ref(7);
+
 // Apply local search query
-const filteredLogs = computed(() => {
-  if (!searchQuery.value) return auditLogs.value.slice(0, 7); // Show top 7 by default
+const filteredLogsAll = computed(() => {
+  if (!searchQuery.value) return auditLogs.value;
   const q = searchQuery.value.toLowerCase();
-  return auditLogs.value
-    .filter(
-      (log) =>
-        log.r.toLowerCase().includes(q) ||
-        log.u.toLowerCase().includes(q) ||
-        log.ev.toLowerCase().includes(q)
-    )
-    .slice(0, 7);
+  return auditLogs.value.filter(
+    (log: any) =>
+      log.r.toLowerCase().includes(q) ||
+      log.u.toLowerCase().includes(q) ||
+      log.ev.toLowerCase().includes(q)
+  );
 });
+
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(filteredLogsAll.value.length / itemsPerPage.value))
+);
+
+// Reset to page 1 when search changes
+watch(searchQuery, () => {
+  currentPage.value = 1;
+});
+
+const paginatedLogs = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return filteredLogsAll.value.slice(start, end);
+});
+
+const pageStart = computed(() =>
+  filteredLogsAll.value.length === 0
+    ? 0
+    : (currentPage.value - 1) * itemsPerPage.value + 1
+);
+const pageEnd = computed(() =>
+  Math.min(currentPage.value * itemsPerPage.value, filteredLogsAll.value.length)
+);
 
 // Format time to HH:MM:SS format
 const formatTime = (timeStr: string) => {
@@ -87,7 +134,7 @@ const getStatusDetails = (event: string) => {
             </tr>
           </thead>
           <tbody class="divide-y divide-[var(--panel-border)]/50 text-sm font-medium">
-            <tr v-for="log in filteredLogs" :key="log.id" class="hover:bg-slate-500/5 transition-colors group">
+            <tr v-for="log in paginatedLogs" :key="log.id" class="hover:bg-slate-500/5 transition-colors group">
               <!-- Time -->
               <td class="py-4 font-code text-[var(--text-muted)]">
                 {{ formatTime(log.t) }}
@@ -118,12 +165,15 @@ const getStatusDetails = (event: string) => {
 
               <!-- Expand Action -->
               <td class="py-4 text-center">
-                <button class="text-[var(--text-muted)] hover:text-indigo-500 transition-colors p-1">
+                <button
+                  @click="openDetail(log)"
+                  class="text-[var(--text-muted)] hover:text-indigo-500 transition-colors p-1 cursor-pointer"
+                >
                   <Icon icon="lucide:eye" class="w-4 h-4" />
                 </button>
               </td>
             </tr>
-            <tr v-if="filteredLogs.length === 0">
+            <tr v-if="paginatedLogs.length === 0">
               <td colspan="6" class="py-12 text-center text-[var(--text-muted)] font-medium text-sm">
                 No logs found
               </td>
@@ -133,12 +183,159 @@ const getStatusDetails = (event: string) => {
       </div>
     </div>
 
-    <!-- Footer link -->
+    <!-- Pagination -->
     <div class="border-t border-[var(--panel-border)] pt-4 mt-4 flex items-center justify-between">
-      <a href="#" class="text-sm font-bold text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5">
-        View all logs
-        <Icon icon="lucide:arrow-right" class="w-4 h-4" />
-      </a>
+      <span class="text-xs text-[var(--text-muted)] font-medium">
+        Showing {{ pageStart }}–{{ pageEnd }} of {{ filteredLogsAll.length }}
+      </span>
+
+      <div class="flex items-center gap-2">
+        <button
+          :disabled="currentPage === 1"
+          @click="currentPage--"
+          class="px-3 py-1.5 rounded-lg border border-[var(--panel-border)] bg-[var(--panel-bg)]/30 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-slate-500/10 text-xs font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1"
+        >
+          <Icon icon="lucide:chevron-left" class="w-3.5 h-3.5" />
+          Prev
+        </button>
+
+        <span class="text-xs font-bold text-[var(--text-main)] px-2">
+          {{ currentPage }} / {{ totalPages }}
+        </span>
+
+        <button
+          :disabled="currentPage === totalPages"
+          @click="currentPage++"
+          class="px-3 py-1.5 rounded-lg border border-[var(--panel-border)] bg-[var(--panel-bg)]/30 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-slate-500/10 text-xs font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer flex items-center gap-1"
+        >
+          Next
+          <Icon icon="lucide:chevron-right" class="w-3.5 h-3.5" />
+        </button>
+      </div>
     </div>
+    <!-- Detail Modal -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition-opacity duration-200"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition-opacity duration-150"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="selectedLog"
+          class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          @click="closeDetail"
+        >
+          <Transition
+            enter-active-class="transition-all duration-300 ease-out"
+            enter-from-class="opacity-0 scale-95 translate-y-4"
+            enter-to-class="opacity-100 scale-100 translate-y-0"
+            leave-active-class="transition-all duration-200 ease-in"
+            leave-from-class="opacity-100 scale-100 translate-y-0"
+            leave-to-class="opacity-0 scale-95 translate-y-4"
+          >
+            <div
+              v-if="selectedLog"
+              class="w-full max-w-2xl max-h-[85vh] bg-[var(--panel-bg)] rounded-2xl border border-[var(--panel-border)] shadow-2xl flex flex-col overflow-hidden"
+              @click.stop
+            >
+              <!-- Modal Header -->
+              <div class="flex items-center justify-between px-6 py-5 border-b border-[var(--panel-border)] shrink-0">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
+                    <Icon icon="lucide:file-text" class="w-5 h-5 text-indigo-500" />
+                  </div>
+                  <div>
+                    <h4 class="text-base font-bold text-[var(--text-main)]">Audit Log Detail</h4>
+                    <p class="text-xs text-[var(--text-muted)]">Log ID: <span class="font-code">{{ selectedLog.id }}</span></p>
+                  </div>
+                </div>
+                <button
+                  @click="closeDetail"
+                  class="p-2 rounded-lg hover:bg-slate-500/10 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer"
+                >
+                  <Icon icon="lucide:x" class="w-5 h-5" />
+                </button>
+              </div>
+
+              <!-- Modal Body -->
+              <div class="flex-1 overflow-y-auto p-6 space-y-5">
+                <!-- Info Table -->
+                <div class="rounded-xl border border-[var(--panel-border)] overflow-hidden">
+                  <table class="w-full text-sm">
+                    <tbody class="divide-y divide-[var(--panel-border)]/50">
+                      <tr class="bg-[var(--panel-bg)]/30">
+                        <td class="py-3 px-4 text-[var(--text-muted)] font-medium w-36">Time</td>
+                        <td class="py-3 px-4 text-[var(--text-main)] font-code">{{ formatTime(selectedLog.t) }}</td>
+                      </tr>
+                      <tr>
+                        <td class="py-3 px-4 text-[var(--text-muted)] font-medium">Event</td>
+                        <td class="py-3 px-4 text-[var(--text-main)] font-semibold">{{ selectedLog.ev }}</td>
+                      </tr>
+                      <tr class="bg-[var(--panel-bg)]/30">
+                        <td class="py-3 px-4 text-[var(--text-muted)] font-medium">Status</td>
+                        <td class="py-3 px-4">
+                          <span
+                            :class="['inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold border', getStatusDetails(selectedLog.ev).bg]"
+                          >
+                            <Icon :icon="getStatusDetails(selectedLog.ev).icon" class="w-3.5 h-3.5" />
+                            {{ getStatusDetails(selectedLog.ev).label }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="py-3 px-4 text-[var(--text-muted)] font-medium">Service</td>
+                        <td class="py-3 px-4 text-[var(--text-main)]">{{ selectedLog.s }}</td>
+                      </tr>
+                      <tr class="bg-[var(--panel-bg)]/30">
+                        <td class="py-3 px-4 text-[var(--text-muted)] font-medium">User ID</td>
+                        <td class="py-3 px-4 text-[var(--text-main)] font-code">U{{ selectedLog.u }}</td>
+                      </tr>
+                      <tr>
+                        <td class="py-3 px-4 text-[var(--text-muted)] font-medium">Org ID</td>
+                        <td class="py-3 px-4 text-[var(--text-main)] font-code">{{ selectedLog.o }}</td>
+                      </tr>
+                      <tr class="bg-[var(--panel-bg)]/30">
+                        <td class="py-3 px-4 text-[var(--text-muted)] font-medium">Process Code</td>
+                        <td class="py-3 px-4 text-[var(--text-main)] font-code">{{ selectedLog.r }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Request Metadata -->
+                <div v-if="selectedLog.m">
+                  <div class="flex items-center gap-2 mb-2">
+                    <Icon icon="lucide:server" class="w-4 h-4 text-[var(--text-muted)]" />
+                    <span class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Request Metadata</span>
+                  </div>
+                  <pre class="bg-slate-950/60 rounded-xl p-4 text-xs font-code text-emerald-400 border border-[var(--panel-border)] leading-relaxed whitespace-pre-wrap break-all">{{ prettyJson(selectedLog.m) }}</pre>
+                </div>
+
+                <!-- User Data -->
+                <div v-if="selectedLog.ud">
+                  <div class="flex items-center gap-2 mb-2">
+                    <Icon icon="lucide:user" class="w-4 h-4 text-[var(--text-muted)]" />
+                    <span class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">User Data</span>
+                  </div>
+                  <pre class="bg-slate-950/60 rounded-xl p-4 text-xs font-code text-blue-400 border border-[var(--panel-border)] leading-relaxed whitespace-pre-wrap break-all">{{ prettyJson(selectedLog.ud) }}</pre>
+                </div>
+
+                <!-- Request Data -->
+                <div v-if="selectedLog.rd">
+                  <div class="flex items-center gap-2 mb-2">
+                    <Icon icon="lucide:database" class="w-4 h-4 text-[var(--text-muted)]" />
+                    <span class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Request Data</span>
+                  </div>
+                  <pre class="bg-slate-950/60 rounded-xl p-4 text-xs font-code text-amber-400 border border-[var(--panel-border)] leading-relaxed whitespace-pre-wrap break-all">{{ prettyJson(selectedLog.rd) }}</pre>
+                </div>
+              </div>
+            </div>
+          </Transition>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
