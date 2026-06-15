@@ -1092,12 +1092,24 @@
     "t": "2026-06-15T16:00:30.000Z"
   },
   {
+    "id": "24058c2",
+    "o": "261",
+    "u": "60010",
+    "r": "INSP-100010",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/poi\",\"previousPage\":\"/vehicle/permissions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T16:00:45.000Z"
+  },
+  {
     "id": "24058d",
     "o": "261",
     "u": "60010",
     "r": "INSP-100010",
     "ev": "page_visit",
-    "ud": "{\"page\":\"/vehicle/odometer\",\"previousPage\":\"/vehicle/permissions\"}",
+    "ud": "{\"page\":\"/vehicle/odometer\",\"previousPage\":\"/vehicle/poi\"}",
     "rd": "{}",
     "m": "{}",
     "s": "gc-service-core",
@@ -1114,6 +1126,66 @@
     "m": "{}",
     "s": "gc-service-core",
     "t": "2026-06-15T16:01:20.000Z"
+  },
+  {
+    "id": "24058f",
+    "o": "261",
+    "u": "60010",
+    "r": "INSP-100010",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/photos\",\"previousPage\":\"/vehicle/odometer\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T16:01:50.000Z"
+  },
+  {
+    "id": "24058g",
+    "o": "261",
+    "u": "60010",
+    "r": "INSP-100010",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/positions\",\"previousPage\":\"/vehicle/photos\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T16:02:30.000Z"
+  },
+  {
+    "id": "24058h",
+    "o": "261",
+    "u": "60010",
+    "r": "INSP-100010",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/review\",\"previousPage\":\"/vehicle/positions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T16:03:00.000Z"
+  },
+  {
+    "id": "24058i",
+    "o": "261",
+    "u": "60010",
+    "r": "INSP-100010",
+    "ev": "submit_claim",
+    "ud": "{\"claimType\":\"Automobile\"}",
+    "rd": "{\"claimId\":\"CLM-998833\",\"status\":\"pending\"}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T16:03:30.000Z"
+  },
+  {
+    "id": "24058j",
+    "o": "261",
+    "u": "60010",
+    "r": "INSP-100010",
+    "ev": "journey_completed",
+    "ud": "{}",
+    "rd": "{\"status\":\"success\"}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T16:03:45.000Z"
   },
   {
     "id": "24059",
@@ -1212,16 +1284,64 @@
     "t": "2026-06-15T18:00:30.000Z"
   },
   {
+    "id": "24060c2",
+    "o": "261",
+    "u": "60012",
+    "r": "INSP-100012",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/poi\",\"previousPage\":\"/vehicle/permissions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T18:00:45.000Z"
+  },
+  {
+    "id": "24060c3",
+    "o": "261",
+    "u": "60012",
+    "r": "INSP-100012",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/odometer\",\"previousPage\":\"/vehicle/poi\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T18:01:15.000Z"
+  },
+  {
+    "id": "24060c4",
+    "o": "261",
+    "u": "60012",
+    "r": "INSP-100012",
+    "ev": "odometer_ocr_success",
+    "ud": "{\"image\":\"odo.jpg\"}",
+    "rd": "{\"reading\":45120,\"confidence\":0.96}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T18:01:35.000Z"
+  },
+  {
     "id": "24060d",
     "o": "261",
     "u": "60012",
     "r": "INSP-100012",
     "ev": "page_visit",
-    "ud": "{\"page\":\"/vehicle/photos\",\"previousPage\":\"/vehicle/permissions\"}",
+    "ud": "{\"page\":\"/vehicle/photos\",\"previousPage\":\"/vehicle/odometer\"}",
     "rd": "{}",
     "m": "{}",
     "s": "gc-service-core",
-    "t": "2026-06-15T18:01:00.000Z"
+    "t": "2026-06-15T18:02:00.000Z"
+  },
+  {
+    "id": "24060d2",
+    "o": "261",
+    "u": "60012",
+    "r": "INSP-100012",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/positions\",\"previousPage\":\"/vehicle/photos\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T18:02:30.000Z"
   },
   {
     "id": "24060e",
@@ -1229,11 +1349,35 @@
     "u": "60012",
     "r": "INSP-100012",
     "ev": "page_visit",
-    "ud": "{\"page\":\"/vehicle/review\",\"previousPage\":\"/vehicle/photos\"}",
+    "ud": "{\"page\":\"/vehicle/review\",\"previousPage\":\"/vehicle/positions\"}",
     "rd": "{}",
     "m": "{}",
     "s": "gc-service-core",
-    "t": "2026-06-15T18:02:00.000Z"
+    "t": "2026-06-15T18:03:00.000Z"
+  },
+  {
+    "id": "24060f",
+    "o": "261",
+    "u": "60012",
+    "r": "INSP-100012",
+    "ev": "submit_claim",
+    "ud": "{\"claimType\":\"Automobile\"}",
+    "rd": "{\"claimId\":\"CLM-998844\",\"status\":\"pending\"}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T18:03:30.000Z"
+  },
+  {
+    "id": "24060g",
+    "o": "261",
+    "u": "60012",
+    "r": "INSP-100012",
+    "ev": "journey_completed",
+    "ud": "{}",
+    "rd": "{\"status\":\"success\"}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T18:03:45.000Z"
   },
   {
     "id": "24061",
@@ -1260,16 +1404,52 @@
     "t": "2026-06-15T19:00:20.000Z"
   },
   {
+    "id": "24061b2",
+    "o": "261",
+    "u": "60013",
+    "r": "INSP-100013",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/permissions\",\"previousPage\":\"/vehicle/instructions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T19:00:30.000Z"
+  },
+  {
     "id": "24061c",
     "o": "261",
     "u": "60013",
     "r": "INSP-100013",
     "ev": "page_visit",
-    "ud": "{\"page\":\"/vehicle/poi\",\"previousPage\":\"/vehicle/instructions\"}",
+    "ud": "{\"page\":\"/vehicle/poi\",\"previousPage\":\"/vehicle/permissions\"}",
     "rd": "{}",
     "m": "{}",
     "s": "gc-service-core",
     "t": "2026-06-15T19:00:40.000Z"
+  },
+  {
+    "id": "24061c2",
+    "o": "261",
+    "u": "60013",
+    "r": "INSP-100013",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/odometer\",\"previousPage\":\"/vehicle/poi\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T19:01:00.000Z"
+  },
+  {
+    "id": "24061c3",
+    "o": "261",
+    "u": "60013",
+    "r": "INSP-100013",
+    "ev": "odometer_ocr_success",
+    "ud": "{\"image\":\"odo.jpg\"}",
+    "rd": "{\"reading\":67300,\"confidence\":0.98}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T19:01:20.000Z"
   },
   {
     "id": "24061d",
@@ -1277,11 +1457,11 @@
     "u": "60013",
     "r": "INSP-100013",
     "ev": "page_visit",
-    "ud": "{\"page\":\"/vehicle/photos\",\"previousPage\":\"/vehicle/poi\"}",
+    "ud": "{\"page\":\"/vehicle/photos\",\"previousPage\":\"/vehicle/odometer\"}",
     "rd": "{}",
     "m": "{}",
     "s": "gc-service-core",
-    "t": "2026-06-15T19:01:15.000Z"
+    "t": "2026-06-15T19:01:45.000Z"
   },
   {
     "id": "24061e",
@@ -1293,6 +1473,42 @@
     "rd": "{}",
     "m": "{}",
     "s": "gc-service-core",
-    "t": "2026-06-15T19:01:45.000Z"
+    "t": "2026-06-15T19:02:15.000Z"
+  },
+  {
+    "id": "24061f",
+    "o": "261",
+    "u": "60013",
+    "r": "INSP-100013",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/review\",\"previousPage\":\"/vehicle/positions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T19:02:45.000Z"
+  },
+  {
+    "id": "24061g",
+    "o": "261",
+    "u": "60013",
+    "r": "INSP-100013",
+    "ev": "submit_claim",
+    "ud": "{\"claimType\":\"Automobile\"}",
+    "rd": "{\"claimId\":\"CLM-998855\",\"status\":\"approved\"}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T19:03:15.000Z"
+  },
+  {
+    "id": "24061h",
+    "o": "261",
+    "u": "60013",
+    "r": "INSP-100013",
+    "ev": "journey_completed",
+    "ud": "{}",
+    "rd": "{\"status\":\"success\"}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T19:03:30.000Z"
   }
 ]
