@@ -22,7 +22,7 @@ const failureCount = auditLogs.filter((log) =>
 
 <template>
   <div
-    class="min-h-screen relative font-sans text-[var(--text-main)] overflow-x-hidden pb-12"
+    class="min-h-screen relative font-sans text-[var(--text-main)] overflow-x-hidden pb-8"
   >
     <!-- Mesh Gradients for background aura -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -129,7 +129,7 @@ const failureCount = auditLogs.filter((log) =>
     </header>
 
     <!-- Main Container -->
-    <main class="relative z-10 w-[98%] mx-auto px-4 md:px-6 pt-8">
+    <main class="relative z-10 w-full mx-auto px-4 md:px-6 pt-8">
       <RouterView />
     </main>
   </div>

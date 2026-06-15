@@ -19,9 +19,9 @@ const refreshDashboard = () => {
 </script>
 
 <template>
-  <div class="space-y-8 pb-16 animate-fade-in">
+  <div class="space-y-8 animate-fade-in">
     <!-- Premium Header Area -->
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+    <div class="flex flex-row justify-between gap-4">
       <div>
         <h2 class="text-3xl font-extrabold tracking-tight text-[var(--text-main)]">Dashboard</h2>
         <p class="text-xs text-[var(--text-muted)] mt-1">

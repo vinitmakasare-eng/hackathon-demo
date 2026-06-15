@@ -270,7 +270,7 @@ const getStepDetails = (event: string, ud: string) => {
     </div>
 
     <!-- Metrics Sub-Header Grid Box -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-4 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/20 text-xs shrink-0">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-4 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/20 text-xs shrink-0 mt-3">
       <div>
         <p class="text-[10px] text-[var(--text-muted)] font-semibold uppercase tracking-wider">User ID</p>
         <p class="text-sm font-bold text-[var(--text-main)] mt-0.5">U{{ userId }}</p>
