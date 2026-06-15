@@ -194,15 +194,15 @@ const getStepDetails = (event: string, ud: string) => {
 </script>
 
 <template>
-  <div class="premium-glass p-6 rounded-2xl border border-[var(--panel-border)] shadow-sm space-y-6 flex flex-col justify-between">
+  <div class="premium-glass p-6 rounded-2xl border border-[var(--panel-border)] shadow-sm flex flex-col h-[340px] overflow-hidden">
     <!-- Header Selector -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
       <div>
         <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-main)]">Process Code Journey Explorer</h3>
         <p class="text-xs text-[var(--text-muted)]">Select a process code to view user journey and details</p>
       </div>
 
-      <div class="flex items-center gap-2 self-start sm:self-auto" ref="dropdownRef">
+      <div class="flex items-center gap-2 self-start sm:self-auto shrink-0" ref="dropdownRef">
         <!-- Custom Searchable Dropdown -->
         <div class="relative min-w-[260px]">
           <button
@@ -270,7 +270,7 @@ const getStepDetails = (event: string, ud: string) => {
     </div>
 
     <!-- Metrics Sub-Header Grid Box -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-4 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/20 text-xs">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-4 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/20 text-xs shrink-0">
       <div>
         <p class="text-[10px] text-[var(--text-muted)] font-semibold uppercase tracking-wider">User ID</p>
         <p class="text-sm font-bold text-[var(--text-main)] mt-0.5">U{{ userId }}</p>
@@ -300,8 +300,8 @@ const getStepDetails = (event: string, ud: string) => {
     </div>
 
     <!-- Timeline Explorer Scroll Container -->
-    <div class="overflow-x-auto w-full py-4 relative scrollbar-thin">
-      <div class="flex items-center min-w-max px-4">
+    <div class="overflow-x-auto w-full py-4 relative scrollbar-thin flex-1 min-h-0 overflow-y-hidden">
+      <div class="flex items-center min-w-max px-4 h-full">
         <template v-for="(log, idx) in selectedLogs" :key="log.id">
           <!-- Timeline Node -->
           <div class="flex flex-col items-center relative z-10 group">
@@ -342,7 +342,7 @@ const getStepDetails = (event: string, ud: string) => {
     </div>
 
     <!-- Bottom link details -->
-    <div class="border-t border-[var(--panel-border)] pt-3 flex items-center justify-between">
+    <div class="border-t border-[var(--panel-border)] pt-3 flex items-center justify-between shrink-0">
       <a href="#" class="text-xs font-bold text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
         View full session details
         <Icon icon="lucide:arrow-right" class="w-3.5 h-3.5" />

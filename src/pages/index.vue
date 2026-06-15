@@ -91,7 +91,7 @@ const refreshDashboard = () => {
     </div>
 
     <!-- Main Dashboard Section with Sidebar Column -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       <!-- Left 9 Columns: Primary Analytics Charts -->
       <div class="lg:col-span-9 space-y-6">
         <!-- Row 1: Failure List, Success Ratio, Journey Funnel (3 columns equal height) -->

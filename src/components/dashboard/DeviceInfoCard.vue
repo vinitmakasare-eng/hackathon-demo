@@ -23,7 +23,7 @@ const maxOsValue = computed(() => Math.max(...Object.values(deviceOs.value)));
 </script>
 
 <template>
-  <div class="premium-glass p-5 rounded-2xl border border-[var(--panel-border)] shadow-sm flex flex-col h-[340px]">
+  <div class="premium-glass p-5 rounded-2xl border border-[var(--panel-border)] shadow-sm flex flex-col h-[340px] overflow-hidden">
     <!-- Header -->
     <div>
       <div class="flex items-center justify-between mb-2">

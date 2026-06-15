@@ -38,9 +38,9 @@ const insights = [
 </script>
 
 <template>
-  <div class="premium-glass p-5 rounded-2xl border border-[var(--panel-border)] shadow-sm space-y-4">
+  <div class="premium-glass p-5 rounded-2xl border border-[var(--panel-border)] shadow-sm space-y-4 flex flex-col h-full">
     <!-- Header -->
-    <div class="flex items-center justify-between border-b border-[var(--panel-border)] pb-3">
+    <div class="flex items-center justify-between border-b border-[var(--panel-border)] pb-3 shrink-0">
       <div class="flex items-center gap-2">
         <Icon icon="lucide:bot" class="w-5 h-5 text-indigo-500" />
         <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-main)]">AI Insights</h3>
@@ -51,8 +51,8 @@ const insights = [
     </div>
 
     <!-- Insights Stack -->
-    <div class="space-y-4">
-      <div 
+    <div class="space-y-4 flex-1 overflow-y-auto">
+      <div
         v-for="insight in insights" 
         :key="insight.title"
         class="p-4 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/20 hover:bg-[var(--panel-bg)]/40 transition-colors space-y-2.5"
