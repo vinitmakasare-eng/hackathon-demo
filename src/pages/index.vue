@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Icon } from "@iconify/vue";
+import { useDashboardMetrics } from "../composables/useDashboardMetrics";
 
-// Dashboard filtering/refresh controls (mock state)
-const selectedTimeframe = ref("Last 7 Days");
+const { selectedTimeframe, kpiValues } = useDashboardMetrics();
 const selectedProcessCodeFilter = ref("All Process Codes");
 
 const refreshDashboard = () => {
@@ -76,39 +76,39 @@ const refreshDashboard = () => {
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
       <KpiCard
         title="Total Sessions"
-        value="12,450"
+        :value="kpiValues.totalSessions"
         icon="lucide:users"
         accentColor="indigo"
-        
+
       />
       <KpiCard
         title="Completed Flows"
-        value="10,876"
+        :value="kpiValues.completedFlows"
         icon="lucide:check-circle"
         accentColor="emerald"
-        
+
       />
       <KpiCard
         title="API Failures"
-        value="423"
+        :value="kpiValues.apiFailures"
         icon="lucide:alert-triangle"
         accentColor="rose"
       />
       <KpiCard
         title="Drop-off Rate"
-        value="12%"
+        :value="kpiValues.dropOffRate"
         icon="lucide:trending-down"
         accentColor="violet"
       />
       <KpiCard
         title="Avg Flow Time"
-        value="4m 12s"
+        :value="kpiValues.avgFlowTime"
         icon="lucide:clock"
         accentColor="violet"
       />
       <KpiCard
         title="Critical Issues"
-        value="5"
+        :value="kpiValues.criticalIssues"
         icon="lucide:alert-circle"
         accentColor="rose"
       />
