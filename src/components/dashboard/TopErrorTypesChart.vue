@@ -54,12 +54,12 @@ const option = computed(() => {
     },
     legend: {
       orient: "vertical",
-      right: "0%",
+      left: "55%",
       top: "center",
       icon: "circle",
       itemWidth: 8,
       itemHeight: 8,
-      itemGap: 12,
+      itemGap: 10,
       textStyle: {
         color: textColor,
         fontFamily: "Plus Jakarta Sans",
@@ -76,7 +76,7 @@ const option = computed(() => {
       {
         name: "Error Types",
         type: "pie",
-        radius: ["50%", "70%"],
+        radius: ["40%", "55%"],
         center: ["30%", "50%"],
         avoidLabelOverlap: false,
         padAngle: 2,

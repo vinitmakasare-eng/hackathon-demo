@@ -79,42 +79,38 @@ const refreshDashboard = () => {
         value="12,450"
         icon="lucide:users"
         accentColor="indigo"
-        :trend="{ value: '8.5% vs last 7 days', isPositive: true }"
+        
       />
       <KpiCard
         title="Completed Flows"
         value="10,876"
         icon="lucide:check-circle"
         accentColor="emerald"
-        :trend="{ value: '7.2% vs last 7 days', isPositive: true }"
+        
       />
       <KpiCard
         title="API Failures"
         value="423"
         icon="lucide:alert-triangle"
         accentColor="rose"
-        :trend="{ value: '18.6% vs last 7 days', isPositive: false }"
       />
       <KpiCard
         title="Drop-off Rate"
         value="12%"
         icon="lucide:trending-down"
         accentColor="violet"
-        :trend="{ value: '2.4% vs last 7 days', isPositive: true }"
       />
       <KpiCard
         title="Avg Flow Time"
         value="4m 12s"
         icon="lucide:clock"
         accentColor="violet"
-        :trend="{ value: '6.3% vs last 7 days', isPositive: true }"
       />
       <KpiCard
         title="Critical Issues"
         value="5"
         icon="lucide:alert-circle"
         accentColor="rose"
-        :trend="{ value: '2 vs last 7 days', isPositive: false }"
       />
     </div>
 
@@ -139,20 +135,24 @@ const refreshDashboard = () => {
           </div>
         </div>
 
-        <!-- Row 3: Journey Explorer (2/3 width) and Audit Log Explorer (1/3 width) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="md:col-span-2">
-            <JourneyExplorer />
-          </div>
-          <div>
-            <AuditLogExplorer />
-          </div>
-        </div>
       </div>
 
       <!-- Right 3 Columns: AI Insights Sidebar -->
       <div class="lg:col-span-3">
         <AiInsights />
+      </div>
+    </div>
+
+    <!-- Full Width Bottom Section -->
+    <div class="space-y-6">
+      <!-- Row 3: Journey Explorer (Full width) -->
+      <div class="grid grid-cols-1 gap-6">
+        <JourneyExplorer />
+      </div>
+
+      <!-- Row 4: Audit Log Explorer (Full width) -->
+      <div class="grid grid-cols-1 gap-6">
+        <AuditLogExplorer />
       </div>
     </div>
   </div>
