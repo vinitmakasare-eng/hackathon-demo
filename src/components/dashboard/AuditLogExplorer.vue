@@ -48,83 +48,83 @@ const getStatusDetails = (event: string) => {
 </script>
 
 <template>
-  <div class="premium-glass p-5 rounded-2xl border border-[var(--panel-border)] shadow-sm flex flex-col justify-between h-[508px] overflow-hidden">
+  <div class="premium-glass p-6 rounded-2xl border border-[var(--panel-border)] shadow-sm flex flex-col justify-between w-full h-full min-h-[508px]">
     <!-- Header -->
-    <div class="space-y-4">
+    <div class="space-y-5 flex-1 flex flex-col">
       <div>
-        <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-main)]">Audit Log Explorer</h3>
-        <p class="text-xs text-[var(--text-muted)]">Search and explore all audit logs</p>
+        <h3 class="text-base font-bold uppercase tracking-wider text-[var(--text-main)]">Audit Log Explorer</h3>
+        <p class="text-sm text-[var(--text-muted)]">Search and explore all audit logs</p>
       </div>
 
       <!-- Controls Row -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3">
         <div class="relative flex-1">
           <input
             v-model="searchQuery"
             type="text"
             placeholder="Search by event, API, user, process code..."
-            class="w-full pl-9 pr-4 py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/30 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/30 text-sm font-semibold focus:outline-none focus:ring-1 focus:ring-indigo-500"
           />
-          <Icon icon="lucide:search" class="w-4 h-4 absolute left-3 top-2.5 text-[var(--text-muted)]" />
+          <Icon icon="lucide:search" class="w-5 h-5 absolute left-3 top-2.5 text-[var(--text-muted)]" />
         </div>
-        <button class="px-3 py-2 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/30 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-slate-500/10 text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer">
-          <Icon icon="lucide:sliders-horizontal" class="w-3.5 h-3.5" />
+        <button class="px-4 py-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/30 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-slate-500/10 text-sm font-bold transition-colors flex items-center gap-2 cursor-pointer">
+          <Icon icon="lucide:sliders-horizontal" class="w-4 h-4" />
           Filters
         </button>
       </div>
 
       <!-- Logs Mini Table -->
-      <div class="w-full overflow-x-auto">
-        <table class="w-full border-collapse text-left">
+      <div class="w-full overflow-x-auto flex-1 mt-2">
+        <table class="w-full border-collapse text-left min-w-[600px]">
           <thead>
-            <tr class="border-b border-[var(--panel-border)] text-[9px] font-bold uppercase tracking-widest text-[var(--text-muted)] pb-2">
-              <th class="pb-2 w-16">Time</th>
-              <th class="pb-2">Process Code</th>
-              <th class="pb-2">User ID</th>
-              <th class="pb-2">Event</th>
-              <th class="pb-2 w-16">Status</th>
-              <th class="pb-2 w-8 text-center"></th>
+            <tr class="border-b border-[var(--panel-border)] text-xs font-bold uppercase tracking-widest text-[var(--text-muted)] pb-3">
+              <th class="pb-3 w-24">Time</th>
+              <th class="pb-3 w-32">Process Code</th>
+              <th class="pb-3 w-24">User ID</th>
+              <th class="pb-3">Event</th>
+              <th class="pb-3 w-28">Status</th>
+              <th class="pb-3 w-12 text-center"></th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-[var(--panel-border)]/50 text-[11px] font-semibold">
+          <tbody class="divide-y divide-[var(--panel-border)]/50 text-sm font-medium">
             <tr v-for="log in filteredLogs" :key="log.id" class="hover:bg-slate-500/5 transition-colors group">
               <!-- Time -->
-              <td class="py-2.5 font-code text-[var(--text-muted)]">
+              <td class="py-4 font-code text-[var(--text-muted)]">
                 {{ formatTime(log.t) }}
               </td>
 
               <!-- Process Code -->
-              <td class="py-2.5 text-[var(--text-main)] font-code">
+              <td class="py-4 text-[var(--text-main)] font-code">
                 {{ log.r }}
               </td>
 
               <!-- User -->
-              <td class="py-2.5 text-[var(--text-muted)]">
+              <td class="py-4 text-[var(--text-muted)]">
                 U{{ log.u }}
               </td>
 
               <!-- Event -->
-              <td class="py-2.5 text-[var(--text-main)] truncate max-w-[120px]" :title="log.ev">
+              <td class="py-4 text-[var(--text-main)]">
                 {{ log.ev }}
               </td>
 
               <!-- Status Badge -->
-              <td class="py-2.5">
-                <span :class="['px-1.5 py-0.5 rounded text-[9px] font-bold border inline-flex items-center gap-0.5', getStatusDetails(log.ev).bg]">
-                  <Icon :icon="getStatusDetails(log.ev).icon" class="w-2.5 h-2.5" />
+              <td class="py-4">
+                <span :class="['px-2.5 py-1 rounded-md text-xs font-bold border inline-flex items-center gap-1.5', getStatusDetails(log.ev).bg]">
+                  <Icon :icon="getStatusDetails(log.ev).icon" class="w-3.5 h-3.5" />
                   {{ getStatusDetails(log.ev).label }}
                 </span>
               </td>
 
               <!-- Expand Action -->
-              <td class="py-2.5 text-center">
-                <button class="text-[var(--text-muted)] hover:text-indigo-500 transition-colors">
-                  <Icon icon="lucide:eye" class="w-3.5 h-3.5" />
+              <td class="py-4 text-center">
+                <button class="text-[var(--text-muted)] hover:text-indigo-500 transition-colors p-1">
+                  <Icon icon="lucide:eye" class="w-4 h-4" />
                 </button>
               </td>
             </tr>
             <tr v-if="filteredLogs.length === 0">
-              <td colspan="6" class="py-8 text-center text-[var(--text-muted)] font-medium">
+              <td colspan="6" class="py-12 text-center text-[var(--text-muted)] font-medium text-sm">
                 No logs found
               </td>
             </tr>
@@ -134,10 +134,10 @@ const getStatusDetails = (event: string) => {
     </div>
 
     <!-- Footer link -->
-    <div class="border-t border-[var(--panel-border)] pt-3 flex items-center justify-between">
-      <a href="#" class="text-xs font-bold text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
+    <div class="border-t border-[var(--panel-border)] pt-4 mt-4 flex items-center justify-between">
+      <a href="#" class="text-sm font-bold text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5">
         View all logs
-        <Icon icon="lucide:arrow-right" class="w-3.5 h-3.5" />
+        <Icon icon="lucide:arrow-right" class="w-4 h-4" />
       </a>
     </div>
   </div>
