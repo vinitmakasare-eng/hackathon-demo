@@ -145,9 +145,14 @@ const refreshDashboard = () => {
 
     <!-- Full Width Bottom Section -->
     <div class="space-y-6">
-      <!-- Row 3: Journey Explorer (Full width) -->
-      <div class="grid grid-cols-1 gap-6">
-        <JourneyExplorer />
+      <!-- Row 3: Journey Explorer + Device Info (side by side) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <JourneyExplorer />
+        </div>
+        <div>
+          <DeviceInfoCard />
+        </div>
       </div>
 
       <!-- Row 4: Audit Log Explorer (Full width) -->
