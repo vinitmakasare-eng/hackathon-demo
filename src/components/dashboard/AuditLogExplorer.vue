@@ -92,6 +92,17 @@ const getStatusDetails = (event: string) => {
   }
   return { label: "info", bg: "bg-blue-500/10 text-blue-500 border-blue-500/20", icon: "lucide:info" };
 };
+
+// Device icon mapping
+const getDeviceIcon = (os?: string) => {
+  const o = (os || "").toLowerCase();
+  if (o.includes("android")) return "lucide:smartphone";
+  if (o.includes("ios")) return "lucide:smartphone";
+  if (o.includes("windows")) return "lucide:monitor";
+  if (o.includes("mac")) return "lucide:laptop";
+  if (o.includes("linux")) return "lucide:terminal";
+  return "lucide:smartphone";
+};
 </script>
 
 <template>
@@ -127,6 +138,7 @@ const getStatusDetails = (event: string) => {
               <th class="pb-3 w-24">User ID</th>
               <th class="pb-3">Event</th>
               <th class="pb-3 w-28">Status</th>
+              <th class="pb-3 w-24">Device</th>
               <th class="pb-3 w-12 text-center"></th>
             </tr>
           </thead>
@@ -160,6 +172,15 @@ const getStatusDetails = (event: string) => {
                 </span>
               </td>
 
+              <!-- Device Info -->
+              <td class="py-4">
+                <div v-if="log.device_info" class="flex items-center gap-2">
+                  <Icon :icon="getDeviceIcon(log.device_info.os)" class="w-4 h-4 text-[var(--text-muted)]" />
+                  <span class="text-xs text-[var(--text-main)] font-medium">{{ log.device_info.os }}</span>
+                </div>
+                <span v-else class="text-xs text-[var(--text-muted)]">—</span>
+              </td>
+
               <!-- Expand Action -->
               <td class="py-4 text-center">
                 <button
@@ -171,7 +192,7 @@ const getStatusDetails = (event: string) => {
               </td>
             </tr>
             <tr v-if="paginatedLogs.length === 0">
-              <td colspan="6" class="py-12 text-center text-[var(--text-muted)] font-medium text-sm">
+              <td colspan="7" class="py-12 text-center text-[var(--text-muted)] font-medium text-sm">
                 No logs found
               </td>
             </tr>
@@ -300,6 +321,37 @@ const getStatusDetails = (event: string) => {
                       </tr>
                     </tbody>
                   </table>
+                </div>
+
+                <!-- Device Info Card -->
+                <div v-if="selectedLog.device_info" class="rounded-xl border border-[var(--panel-border)] p-5 space-y-4">
+                  <div class="flex items-center gap-2">
+                    <Icon icon="lucide:cpu" class="w-4 h-4 text-[var(--text-muted)]" />
+                    <span class="text-xs font-bold uppercase tracking-widest text-[var(--text-muted)]">Device Information</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center shrink-0">
+                      <Icon :icon="getDeviceIcon(selectedLog.device_info.os)" class="w-6 h-6 text-indigo-500" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-bold text-[var(--text-main)] truncate">
+                        {{ selectedLog.device_info.os }} {{ selectedLog.device_info.os_version }}
+                      </p>
+                      <p class="text-xs text-[var(--text-muted)] mt-0.5">
+                        {{ selectedLog.device_info.browser }} · {{ selectedLog.device_info.device_type }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-[var(--panel-bg)]/50 rounded-lg p-3 border border-[var(--panel-border)]">
+                      <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Screen</span>
+                      <p class="text-xs font-medium text-[var(--text-main)] mt-1 font-code">{{ selectedLog.device_info.screen_resolution }}</p>
+                    </div>
+                    <div class="bg-[var(--panel-bg)]/50 rounded-lg p-3 border border-[var(--panel-border)]">
+                      <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Language</span>
+                      <p class="text-xs font-medium text-[var(--text-main)] mt-1 font-code">{{ selectedLog.device_info.language }}</p>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Request Metadata -->
