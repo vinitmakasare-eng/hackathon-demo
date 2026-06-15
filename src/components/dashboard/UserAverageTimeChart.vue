@@ -25,10 +25,10 @@ use([
 const isDark = useDark();
 
 const pagesData = [
-  { name: "Instructions", value: 5, label: "5s" },
-  { name: "Odometer Capture", value: 30, label: "30s" },
+  { name: "Instructions", value: 5, label: "8s" },
   { name: "Position Prediction", value: 12, label: "12s" },
-  { name: "Other Photos", value: 120, label: "2m 00s", highlight: true }, // Highlighted red bar in screenshot
+  { name: "Odometer Capture", value: 30, label: "30s" },
+  { name: "Photos", value: 120, label: "2m 00s", highlight: true }, // Highlighted red bar in screenshot
   { name: "Review", value: 15, label: "15s" },
   { name: "Submit", value: 10, label: "10s" }
 ];
