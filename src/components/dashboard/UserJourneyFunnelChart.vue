@@ -53,7 +53,7 @@ const option = computed(() => {
       },
       formatter: (params: any) => {
         const actualVal = funnelData.find(d => d.name === params.name)?.actual || 0;
-        return `${params.name}: <b>${actualVal.toLocaleString()} users</b> (${params.value}%)`;
+        return `${params.name}: <b>${actualVal.toLocaleString()} users</b> (${params.data.realValue}%)`;
       }
     },
     series: [
@@ -61,13 +61,13 @@ const option = computed(() => {
         name: "User Journey Funnel",
         type: "funnel",
         left: "5%",
-        right: "35%",
+        right: "40%",
         top: "5%",
         bottom: "5%",
-        width: "60%",
-        min: 60,
+        width: "55%",
+        min: 0,
         max: 100,
-        minSize: "40%",
+        minSize: "10%",
         maxSize: "100%",
         sort: "descending",
         gap: 2,
@@ -76,11 +76,10 @@ const option = computed(() => {
           position: "right",
           color: textColor,
           fontFamily: "Plus Jakarta Sans",
-          fontSize: 10,
+          fontSize: 11,
           fontWeight: 600,
           formatter: (params: any) => {
-            const actualVal = funnelData.find(d => d.name === params.name)?.actual || 0;
-            return `${params.name}\n${actualVal.toLocaleString()} (${params.value}%)`;
+            return `${params.name}\n${params.data.realValue}%`;
           }
         },
         labelLine: {
@@ -92,9 +91,11 @@ const option = computed(() => {
           }
         },
         itemStyle: {
-          borderColor: "transparent",
-          borderWidth: 0,
-          borderRadius: 4
+          borderColor: isDark.value ? "#0f172a" : "#ffffff",
+          borderWidth: 2,
+          borderRadius: 4,
+          shadowBlur: 10,
+          shadowColor: "rgba(0, 0, 0, 0.15)"
         },
         emphasis: {
           label: {
@@ -103,8 +104,9 @@ const option = computed(() => {
             fontWeight: "bold"
           }
         },
-        data: funnelData.map(d => ({
-          value: d.value,
+        data: funnelData.map((d, index) => ({
+          value: 100 - (index * 16), // Forces a perfect V shape (100, 84, 68, 52, 36, 20)
+          realValue: d.value,
           name: d.name,
           itemStyle: {
             color: d.color
@@ -131,7 +133,7 @@ const option = computed(() => {
     </div>
 
     <!-- Chart container -->
-    <div class="h-[180px] w-full mt-2">
+    <div class="flex-1 w-full min-h-[220px] mt-4 mb-2">
       <VChart :option="option" autoresize />
     </div>
 

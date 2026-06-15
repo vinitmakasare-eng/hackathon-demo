@@ -65,7 +65,7 @@ const failureCount = auditLogs.filter((log) =>
           <h1
             class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent"
           >
-            LogiPulse
+            FlowPulse
           </h1>
           <p
             class="text-[10px] uppercase font-bold tracking-widest text-[var(--text-muted)] -mt-0.5"
@@ -79,22 +79,7 @@ const failureCount = auditLogs.filter((log) =>
       <div
         class="hidden md:flex items-center gap-6 text-sm border-x border-[var(--panel-border)] px-6"
       >
-        <div class="flex items-center gap-2">
-          <!-- Pulse Dot Indicator -->
-          <span class="relative flex h-2 w-2">
-            <span
-              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-            ></span>
-            <span
-              class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 glow-dot-success"
-            ></span>
-          </span>
-          <span class="font-medium text-xs text-[var(--text-muted)]"
-            >Live Stream Connected</span
-          >
-        </div>
-
-        <div class="h-4 w-px bg-[var(--panel-border)]"></div>
+      
 
         <div class="flex items-center gap-2 text-xs">
           <span class="text-[var(--text-muted)]">Logs:</span>
