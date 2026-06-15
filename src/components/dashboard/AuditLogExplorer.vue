@@ -114,10 +114,7 @@ const getStatusDetails = (event: string) => {
           />
           <Icon icon="lucide:search" class="w-5 h-5 absolute left-3 top-2.5 text-[var(--text-muted)]" />
         </div>
-        <button class="px-4 py-2.5 rounded-xl border border-[var(--panel-border)] bg-[var(--panel-bg)]/30 text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-slate-500/10 text-sm font-bold transition-colors flex items-center gap-2 cursor-pointer">
-          <Icon icon="lucide:sliders-horizontal" class="w-4 h-4" />
-          Filters
-        </button>
+      
       </div>
 
       <!-- Logs Mini Table -->
