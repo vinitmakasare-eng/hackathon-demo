@@ -23,12 +23,13 @@ use([
 const isDark = useDark();
 
 const funnelData = [
-  { value: 100, name: "Start Inspection", actual: 10000, color: "#3b82f6" }, // Blue
-  { value: 95, name: "Instructions", actual: 9500, color: "#6366f1" },       // Indigo
-  { value: 90, name: "Odometer Capture", actual: 9000, color: "#f59e0b" },   // Orange/Amber
-  { value: 85, name: "Position Prediction", actual: 8500, color: "#a855f7" },// Violet
-  { value: 78, name: "Other Photos", actual: 7800, color: "#10b981" },       // Emerald
-  { value: 72, name: "Review & Submit", actual: 7200, color: "#ec4899" }     // Pink
+  { value: 100, name: "Start Inspection", actual: 10000, color: "#3b82f6" },    // Blue
+  { value: 95, name: "Instructions", actual: 9500, color: "#6366f1" },           // Indigo
+  { value: 92, name: "Point of Impact", actual: 9200, color: "#f59e0b" },        // Amber
+  { value: 85, name: "Odometer Capture", actual: 8500, color: "#a855f7" },       // Violet
+  { value: 78, name: "Photos", actual: 7800, color: "#10b981" },                 // Emerald
+  { value: 72, name: "Prediction Photos", actual: 7200, color: "#f97316" },      // Orange
+  { value: 65, name: "Review & Submit", actual: 6500, color: "#ec4899" }         // Pink
 ];
 
 const option = computed(() => {
@@ -105,7 +106,7 @@ const option = computed(() => {
           }
         },
         data: funnelData.map((d, index) => ({
-          value: 100 - (index * 16), // Forces a perfect V shape (100, 84, 68, 52, 36, 20)
+          value: 100 - (index * 14), // Forces a perfect V shape (100, 86, 72, 58, 44, 30, 16)
           realValue: d.value,
           name: d.name,
           itemStyle: {

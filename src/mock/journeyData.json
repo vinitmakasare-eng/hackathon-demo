@@ -168,6 +168,18 @@
     "t": "2026-06-15T10:02:20.000Z"
   },
   {
+    "id": "24002b",
+    "o": "261",
+    "u": "12345",
+    "r": "INSP-123456",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/poi\",\"previousPage\":\"/vehicle/instructions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T10:02:30.000Z"
+  },
+  {
     "id": "24003",
     "o": "261",
     "u": "12345",
@@ -300,6 +312,18 @@
     "t": "2026-06-15T11:20:15.000Z"
   },
   {
+    "id": "24022b",
+    "o": "261",
+    "u": "98765",
+    "r": "INSP-789012",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/poi\",\"previousPage\":\"/vehicle/instructions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T11:20:30.000Z"
+  },
+  {
     "id": "24023",
     "o": "261",
     "u": "98765",
@@ -418,6 +442,18 @@
     "m": "{}",
     "s": "gc-service-core",
     "t": "2026-06-15T12:00:10.000Z"
+  },
+  {
+    "id": "24042b",
+    "o": "261",
+    "u": "55555",
+    "r": "INSP-456789",
+    "ev": "page_visit",
+    "ud": "{\"page\":\"/vehicle/poi\",\"previousPage\":\"/vehicle/instructions\"}",
+    "rd": "{}",
+    "m": "{}",
+    "s": "gc-service-core",
+    "t": "2026-06-15T12:00:20.000Z"
   },
   {
     "id": "24043",
