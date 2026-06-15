@@ -85,11 +85,5 @@ const colorMap = {
         <span>{{ trend.value }}</span>
       </div>
     </div>
-
-    <!-- Decorative background highlight -->
-    <div
-      class="absolute -bottom-8 -right-8 w-24 h-24 rounded-full opacity-5 dark:opacity-[0.03] pointer-events-none"
-      :style="`background-color: currentColor`"
-    ></div>
   </div>
 </template>
